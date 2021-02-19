@@ -2,6 +2,8 @@
 
 Start minikube with `minikube.sh`.
 
+[Install](https://linkerd.io/2/getting-started/) linkerd CLI.
+
 Install linkerd-cni and linkerd.
 
 ```bash
