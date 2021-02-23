@@ -1,0 +1,26 @@
+= Consul Connect
+
+Intro to Consul Connect Service Mesh
+
+[source,bash]
+----
+helm repo add hashicorp https://helm.releases.hashicorp.com
+
+helm install -f consul-values.yaml hashicorp hashicorp/consul
+
+kubectl port-forward service/hashicorp-consul-ui 18500:80 --address=0.0.0.0
+----
+
+[source,bash]
+----
+kubectl port-forward service/web 9090:9090 --address 0.0.0.0
+
+//
+
+kubectl exec -it hashicorp-consul-server-0 -- /bin/sh
+
+// deny all
+consul intention create -deny "*" "*"
+
+consul intention create -allow web api
+----
