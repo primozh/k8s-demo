@@ -1,0 +1,11 @@
+= Horizontal Autoscaler
+
+https://stackoverflow.com/questions/57137683/how-to-troubleshoot-metrics-server-on-kubeadm
+
+kubectl apply -f ha-example.yaml
+
+kubectl autoscale deployment go-runner --cpu-percent=50 --min=1 --max=10
+
+kubectl get hpa
+
+kubectl create -f hpa.yaml
