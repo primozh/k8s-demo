@@ -1,0 +1,25 @@
+= Layer 7 Observability
+
+----
+helm repo add prometheus-community https://prometheus-community.github.io/helm-charts && \
+helm repo add grafana https://grafana.github.io/helm-charts && \
+helm repo add hashicorp https://helm.releases.hashicorp.com && \
+helm repo update
+
+git clone https://github.com/hashicorp/learn-consul-kubernetes.git
+
+cd learn-consul-kubernetes
+
+git checkout tags/v0.0.3
+
+
+helm install -f layer7-observability/helm/consul-values.yaml consul hashicorp/consul --version "0.27.0" --wait
+
+helm install -f layer7-observability/helm/prometheus-values.yaml prometheus prometheus-community/prometheus --version "11.7.0" --wait
+
+helm install -f layer7-observability/helm/grafana-values.yaml grafana grafana/grafana --version "5.3.6" --wait
+
+# proxy grafana app to localhost
+export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=grafana,app.kubernetes.io/instance=grafana" -o jsonpath="{.items[0].metadata.name}")
+    kubectl --namespace default port-forward $POD_NAME 3000
+----
