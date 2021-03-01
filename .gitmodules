@@ -1,0 +1,3 @@
+[submodule "mesh/consul/crds/learn-consul-kubernetes"]
+	path = mesh/consul/crds/learn-consul-kubernetes
+	url = https://github.com/hashicorp/learn-consul-kubernetes.git

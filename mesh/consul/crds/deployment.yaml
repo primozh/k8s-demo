@@ -1,0 +1,43 @@
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceDefaults
+metadata:
+  name: frontend
+spec:
+  protocol: 'http'
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceDefaults
+metadata:
+  name: public-api
+spec:
+  protocol: 'http'
+---
+apiVersion: consul.hashicorp.com/v1alpha1
+kind: ServiceIntentions
+metadata:
+  name: public-api
+spec:
+  # name of the destination service affected by this ServiceIntentions entry
+  destination:
+    name: public-api
+  # The set of traffic sources affected by this ServiceIntetions entry
+  sources:
+    - name: frontend
+      permissions:
+        - action: deny
+          http:
+            pathExact: "/health"
+        - action: allow
+          http:
+            pathPrefix: '/'
+            methods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+            header:
+              - name: 'Authorization'
+                present: true
+        - action: deny
+          http:
+            pathPrefix: '/'
