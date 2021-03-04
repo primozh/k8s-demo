@@ -1,0 +1,13 @@
+global:
+  name: consul
+  enabled: true
+  datacenter: dc1
+
+server:
+  replicas: 1
+  bootstrapExpect: 1
+
+connectInject:
+  enabled: true
+controller:
+  enabled: true
